@@ -6,14 +6,14 @@ const OrderPizza = () => {
   const [pizzas, setPizzas] = useState(null)
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchPizza = async () => {
       const data = await fetch('http://localhost:3000/api/v1/pizzeria/pizza')
       const jsonData = await data.json()
 
       setPizzas(jsonData ?. pizzas)
     }
 
-    fetchData()
+    fetchPizza()
   }, [])
 
   return (

@@ -1,9 +1,10 @@
 const express = require('express')
 const mongoose = require('mongoose')
+const dotenv = require('dotenv')
 const router = require('./routes/pizza')
 const app = express()
 
-
+dotenv.config()
 app.use('/api/v1/pizzeria',router)
 app.get('/api/health', (req, res) => {
   try {
@@ -16,6 +17,6 @@ app.get('/api/health', (req, res) => {
 })
 
 app.listen(3000, async () => {
-  await mongoose.connect('mongodb+srv://aayush895:8xFE0BL1Zs7RJP1h@cluster0.n7reeip.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0')
+  await mongoose.connect(process.env.MONGODB_URL)
   console.log('Server & database connected successfully')
 })
