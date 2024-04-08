@@ -1,6 +1,5 @@
 const express = require('express')
 const mongoose = require('mongoose')
-const pizzaRouter = require('./controller/pizza')
 const router = require('./routes/pizza')
 const app = express()
 
