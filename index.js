@@ -1,10 +1,13 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const dotenv = require('dotenv')
+const cors = require('cors')
 const router = require('./routes/pizza')
 const app = express()
 
+
 dotenv.config()
+app.use(cors())
 app.use('/api/v1/pizzeria',router)
 app.get('/api/health', (req, res) => {
   try {

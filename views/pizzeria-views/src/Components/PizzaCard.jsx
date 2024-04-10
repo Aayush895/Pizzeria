@@ -1,8 +1,8 @@
 /* eslint-disable react/prop-types */
 const PizzaCard = ({ pizza }) => {
   return (
-    <div className="flex justify-between border border-black w-[50%] h-[450px] mx-auto px-5 py-4 mb-4 mt-3">
-      <div className="mr-16">
+    <div className="flex justify-between border border-black w-[50%] h-[520px] mx-auto px-5 py-4 mb-4 mt-3">
+      <div className="mr-4">
         <h1 className="text-3xl text-center">{pizza?.name}</h1>
         <div
           className="h-[30px] w-[30px] mb-10 mx-auto"

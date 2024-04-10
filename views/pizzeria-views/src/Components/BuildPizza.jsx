@@ -1,45 +1,43 @@
-import {useState, useEffect} from 'react'
+import { useState, useEffect } from "react";
 
 const BuildPizza = () => {
-
-  const [ingredients, setIngredients] = useState(null)
-  const [isChecked, setisChecked] = useState([])
-  const [total, setTotal] = useState(0)
+  const [ingredients, setIngredients] = useState([]);
+  const [isChecked, setisChecked] = useState([]);
+  const [total, setTotal] = useState(0);
 
   useEffect(() => {
     const fetchIngredients = async () => {
-      const data = await fetch('http://localhost:3000/api/v1/pizzeria/ingredients')
-      const jsonData = await data.json()
+      const data = await fetch(
+        "http://localhost:3000/api/v1/pizzeria/ingredients"
+      );
+      const jsonData = await data.json();
+      setisChecked(new Array(jsonData.ingredients.length).fill(false));
+      setIngredients(jsonData?.ingredients);
+    };
 
-      setIngredients(jsonData ?. ingredients)
-      console.log(jsonData);
-    }
+    fetchIngredients();
+  }, []);
 
-    fetchIngredients()
-    if (ingredients !== null) {
-      setisChecked(new Array(ingredients.length).fill(false))
-    }
-  }, [])
-
-  const handleChecked = (position) => {
+  const handleCheckbox = (position) => {
     const updatedCheckedState = isChecked.map((checked, index) => {
-      return position === index ? !checked : checked
-    })
+      return position === index ? !checked : checked;
+    });
 
-    setisChecked(updatedCheckedState)
+    setisChecked(updatedCheckedState);
     const totalPrice = updatedCheckedState.reduce(
       (sum, currentState, index) => {
         if (currentState === true) {
-          return sum + ingredients[index].price
+          return sum + ingredients[index].price;
         }
-        return sum
+        return sum;
       },
       0
-    )
+    );
 
-    setTotal(totalPrice)
-  }
+    setTotal(totalPrice);
+  };
 
+  console.log(isChecked);
   return (
     <div className="p-16 text-center">
       <p className="mb-10">
@@ -70,15 +68,17 @@ const BuildPizza = () => {
                     <input
                       type="checkbox"
                       name="add"
+                      value={index}
+                      defaultValue={false}
                       checked={isChecked[index]}
-                      onChange={() => handleChecked(index)}
+                      onChange={() => handleCheckbox(index)}
                     />
                     <label htmlFor="add" className="mx-4 text-amber-500">
                       Add
                     </label>
                   </td>
                 </tr>
-              )
+              );
             })
           ) : (
             <tr>
@@ -93,6 +93,6 @@ const BuildPizza = () => {
         Build your Pizza
       </button>
     </div>
-  )
-}
-export default BuildPizza
+  );
+};
+export default BuildPizza;
